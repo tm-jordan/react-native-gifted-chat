@@ -197,6 +197,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     isAnimated: Platform.select({
       ios: true,
       android: false,
+      default: false,
     }),
     loadEarlier: false,
     onLoadEarlier: () => {},
@@ -238,11 +239,12 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     keyboardShouldPersistTaps: Platform.select({
       ios: 'never',
       android: 'always',
+      default: 'never',
     }),
     onInputTextChanged: null,
     maxInputLength: null,
     forceGetKeyboardHeight: false,
-    inverted: true,
+    inverted: Platform.OS !== 'web',
     extraData: null,
     minComposerHeight: MIN_COMPOSER_HEIGHT,
     maxComposerHeight: MAX_COMPOSER_HEIGHT,
@@ -310,7 +312,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
   static append<TMessage extends IMessage>(
     currentMessages: TMessage[] = [],
     messages: TMessage[],
-    inverted = true,
+    inverted = Platform.OS !== 'web',
   ) {
     if (!Array.isArray(messages)) {
       messages = [messages]
@@ -323,7 +325,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
   static prepend<TMessage extends IMessage>(
     currentMessages: TMessage[] = [],
     messages: TMessage[],
-    inverted = true,
+    inverted = Platform.OS !== 'web',
   ) {
     if (!Array.isArray(messages)) {
       messages = [messages]
