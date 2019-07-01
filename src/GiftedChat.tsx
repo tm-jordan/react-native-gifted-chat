@@ -248,7 +248,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     onInputTextChanged: null,
     maxInputLength: null,
     forceGetKeyboardHeight: false,
-    inverted: Platform.OS !== 'web',
+    inverted: true,
     extraData: null,
     minComposerHeight: MIN_COMPOSER_HEIGHT,
     maxComposerHeight: MAX_COMPOSER_HEIGHT,
@@ -316,7 +316,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
   static append<TMessage extends IMessage>(
     currentMessages: TMessage[] = [],
     messages: TMessage[],
-    inverted = Platform.OS !== 'web',
+    inverted = true,
   ) {
     if (!Array.isArray(messages)) {
       messages = [messages]
@@ -329,7 +329,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
   static prepend<TMessage extends IMessage>(
     currentMessages: TMessage[] = [],
     messages: TMessage[],
-    inverted = Platform.OS !== 'web',
+    inverted = true,
   ) {
     if (!Array.isArray(messages)) {
       messages = [messages]
@@ -349,7 +349,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
   invertibleScrollViewProps: any = undefined
   _actionSheetRef: any = undefined
 
-  _messageContainerRef?: RefObject<FlatList<any>> = React.createRef()
+  _messageContainerRef?: RefObject<FlatList<IMessage>> = React.createRef()
   textInput?: any
 
   state = {
@@ -598,7 +598,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     if (this._messageContainerRef && this._messageContainerRef.current) {
       const { inverted } = this.props
       if (!inverted) {
-        this._messageContainerRef.current.scrollToEnd()
+        this._messageContainerRef.current.scrollToEnd({ animated })
       } else {
         this._messageContainerRef.current.scrollToOffset({
           offset: 0,
@@ -610,6 +610,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
 
   renderMessages() {
     const AnimatedView = this.props.isAnimated === true ? Animated.View : View
+
     return (
       <AnimatedView
         style={{
@@ -647,7 +648,8 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     if (this.props.onSend) {
       this.props.onSend(newMessages)
     }
-    this.scrollToBottom()
+
+    setTimeout(() => this.scrollToBottom(), 100)
 
     if (shouldResetInputToolbar === true) {
       setTimeout(() => {
