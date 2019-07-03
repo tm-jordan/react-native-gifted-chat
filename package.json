@@ -1,6 +1,6 @@
 {
   "name": "react-native-gifted-chat",
-  "version": "0.10.0-beta.web.4",
+  "version": "0.10.0-beta.web.5",
   "description": "The most complete chat UI for React Native",
   "main": "node_modules/expo/AppEntry.js",
   "types": "lib/index.d.ts",
@@ -55,7 +55,6 @@
       "**/*.test.ts?(x)"
     ],
     "modulePathIgnorePatterns": [
-      "<rootDir>/example",
       "<rootDir>/example-expo",
       "<rootDir>/example-slack-message"
     ]
@@ -102,7 +101,6 @@
     "react-native-lightbox": "^0.7.0",
     "react-native-maps": "~0.24.0",
     "react-native-parsed-text": "https://github.com/EvanBacon/react-native-parsed-text.git",
-    "react-native-video": "4.4.2",
     "react-native-web": "^0.11.1",
     "uuid": "3.3.0"
   },
