@@ -9,6 +9,7 @@ import {
   ViewStyle,
   SafeAreaView,
   FlatList,
+  TextStyle,
 } from 'react-native'
 
 import ActionSheet from '@expo/react-native-action-sheet'
@@ -40,7 +41,7 @@ import {
   TIME_FORMAT,
   DATE_FORMAT,
 } from './Constant'
-import { IMessage, User, Reply } from './types'
+import { IMessage, User, Reply, LeftRightStyle } from './types'
 import QuickReplies from './QuickReplies'
 
 const GiftedActionSheet = ActionSheet as any
@@ -107,6 +108,7 @@ export interface GiftedChatProps<TMessage extends IMessage = IMessage> {
   quickReplyStyle?: StyleProp<ViewStyle>
   /* optional prop used to place customView below text, image and video views; default is false */
   isCustomViewBottom?: boolean
+  timeTextStyle?: LeftRightStyle<TextStyle>
   /* Callback when a message avatar is tapped */
   onPressAvatar?(user: User): void
   /* Callback when a message avatar is tapped */
@@ -214,7 +216,6 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     onLongPressAvatar: null,
     renderUsernameOnMessage: false,
     renderAvatarOnTop: false,
-    isCustomViewBottom: false,
     renderBubble: null,
     renderSystemMessage: null,
     onLongPress: null,
@@ -622,6 +623,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
           invertibleScrollViewProps={this.invertibleScrollViewProps}
           messages={this.getMessages()}
           forwardRef={this._messageContainerRef}
+          onQuickReply={this.onQuickReply}
         />
         {this.renderChatFooter()}
       </AnimatedView>
@@ -658,6 +660,13 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
         }
       }, 100)
     }
+  }
+
+  onQuickReply = (replies: Reply[]) => {
+    if (this.props.onQuickReply) {
+      this.props.onQuickReply(replies)
+    }
+    setTimeout(() => this.scrollToBottom(), 100)
   }
 
   resetInputToolbar() {
