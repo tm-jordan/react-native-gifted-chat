@@ -651,7 +651,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
       this.props.onSend(newMessages)
     }
 
-    setTimeout(() => this.scrollToBottom(), 100)
+    setTimeout(() => this.scrollToBottom(false), 100)
 
     if (shouldResetInputToolbar === true) {
       setTimeout(() => {
@@ -666,7 +666,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     if (this.props.onQuickReply) {
       this.props.onQuickReply(replies)
     }
-    setTimeout(() => this.scrollToBottom(), 100)
+    setTimeout(() => this.scrollToBottom(false), 100)
   }
 
   resetInputToolbar() {
