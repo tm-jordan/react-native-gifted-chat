@@ -106,7 +106,6 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-video": "*",
     "moment": "*"
   },
   "husky": {
