@@ -633,7 +633,6 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
           invertibleScrollViewProps={this.invertibleScrollViewProps}
           messages={this.getMessages()}
           forwardRef={this._messageContainerRef}
-          onQuickReply={this.onQuickReply}
         />
         {this.renderChatFooter()}
       </AnimatedView>
@@ -661,8 +660,6 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
       this.props.onSend(newMessages)
     }
 
-    setTimeout(() => this.scrollToBottom(false), 200)
-
     if (shouldResetInputToolbar === true) {
       setTimeout(() => {
         if (this.getIsMounted() === true) {
@@ -670,13 +667,6 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
         }
       }, 100)
     }
-  }
-
-  onQuickReply = (replies: Reply[]) => {
-    if (this.props.onQuickReply) {
-      this.props.onQuickReply(replies)
-    }
-    setTimeout(() => this.scrollToBottom(false), 200)
   }
 
   resetInputToolbar() {
